@@ -1,4 +1,5 @@
-# EXPLAIN HERE WHAT THIS CODE IS
+# Here we are running the K nearest neighbor to make streamflow forecasts
+# The streamflow forecasts are made for the 5 reservoirs in this case
 
 for (timeforknn in 1:25){
   
