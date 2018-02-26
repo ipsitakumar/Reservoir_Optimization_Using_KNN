@@ -1,12 +1,11 @@
-
+# add a line saying what each plot is about without entering into the details. Also, this is super long ... Is it really all needed ?
 if(with_rioSF == TRUE){
   pdf(file=paste("../results/results from KNN Sim with RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE,width = 12,height=6)
 }else{
   pdf(file=paste("../results/results from KNN Sim without RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE,width = 12,height=6)
 }
 
-#par(mfrow=c(2,2))
-#par(mar=c(4,4,4,1))
+
 for(r in 1:nR){
   plot(rSfinalKNN[r,,1],type="l",ylim=c(min(rSfinalKNN[r,,]),max(rSfinalKNN[r,,])),ylab="storage [mio m3]",xlab = "months")
   for(s in 2:nS){lines(rSfinalKNN[r,,s])}
@@ -15,7 +14,7 @@ for(r in 1:nR){
   title(paste(resname[r], "reservoir"))
 }
 
-sumfailuresim<-sum(Failuresim)
+sumfailuresim <- sum(Failuresim)
 hist(colSums(colSums(rFfinalKNN)),xlab = "Failure [mio m3]",main = " ", xlim = c(0 , 120))
 abline(v=mean(colSums(colSums(rFfinalKNN))),col="red",lwd=3)
 abline(v=quantile(colSums(colSums(rFfinalKNN)),probs = c(0.1,0.5,0.9)),col=c(3:nR),lwd=3,lty=2:4)
@@ -47,41 +46,41 @@ title("Total failure")
 
 
 
-mLOC=apply(rQfinalKNN,MARGIN=c(1,3),sum)
-mIMP=apply(rQIMPfinalKNN,MARGIN=c(1,3),sum)
-mALLres<-colSums(mLOC)
-if(with_rioSF==TRUE){
-  imp<-mIMP[1:nTrucks,]
-  imp<-apply(imp,MARGIN=c(2),sum)
-  Jucazinho<-mLOC[1,]
-  otherreservoirs<-mLOC[2:nR,]
-  otherreservoirs<-apply(otherreservoirs,MARGIN=c(2),sum)
-  riosf<-mIMP[nIMP,]
-  withdrawaloptim<-rbind(Jucazinho,otherreservoirs,imp,riosf)
+mLOC <- apply(rQfinalKNN,MARGIN=c(1,3),sum)
+mIMP <- apply(rQIMPfinalKNN,MARGIN=c(1,3),sum)
+mALLres <- colSums(mLOC)
+if(with_rioSF==TRUE){ # both parts are identical I believe except for line riosf ...
+  imp <- mIMP[1:nTrucks,]
+  imp <- apply(imp,MARGIN=c(2),sum)
+  Jucazinho <- mLOC[1,]
+  otherreservoirs <- mLOC[2:nR,]
+  otherreservoirs <- apply(otherreservoirs,MARGIN=c(2),sum)
+  riosf <- mIMP[nIMP,]
+  withdrawaloptim <- rbind(Jucazinho,otherreservoirs,imp,riosf)
 }else{
-  imp<-mIMP[1:nTrucks,]
-  imp<-apply(imp,MARGIN=c(2),sum)
-  Jucazinho<-mLOC[1,]
-  otherreservoirs<-mLOC[2:nR,]
-  otherreservoirs<-apply(otherreservoirs,MARGIN=c(2),sum)
-  withdrawaloptim<-rbind(Jucazinho,otherreservoirs,imp)
+  imp <- mIMP[1:nTrucks,]
+  imp <- apply(imp,MARGIN=c(2),sum)
+  Jucazinho <- mLOC[1,]
+  otherreservoirs <- mLOC[2:nR,]
+  otherreservoirs <- apply(otherreservoirs,MARGIN=c(2),sum)
+  withdrawaloptim <- rbind(Jucazinho,otherreservoirs,imp)
 }
 if(with_rioSF==TRUE){
-  AB<-4
+  AB <- 4
 }else{
-  AB=3
+  AB <- 3
 }
 
-rFmedian<-apply(rFfinalKNN,MARGIN=c(1,2),median)
-rFmedianJuca<-rFmedian[1,]
-rFmedianothers<-colSums(rFmedian[2:nR,])
-rFmedianAll<-colSums(rFmedian[1:nR,])
-rFall<-colSums(rFfinalKNN)
-rFallmedian<-apply(rFall,1,median)
-withdrawalsimJuca<-withdrawalKNNsimfinal[1,]
-withdrawalsimothers<-colSums(withdrawalKNNsimfinal[2:nR,])
-withdrawalsimALL<-colSums(withdrawalKNNsimfinal[1:nR,])
-Failuresimulated<-colSums(FailureKNNsimfinal)
+rFmedian <- apply(rFfinalKNN,MARGIN=c(1,2),median)
+rFmedianJuca <- rFmedian[1,]
+rFmedianothers <- colSums(rFmedian[2:nR,])
+rFmedianAll <- colSums(rFmedian[1:nR,])
+rFall <- colSums(rFfinalKNN)
+rFallmedian <- apply(rFall,1,median)
+withdrawalsimJuca <- withdrawalKNNsimfinal[1,]
+withdrawalsimothers <- colSums(withdrawalKNNsimfinal[2:nR,])
+withdrawalsimALL <- colSums(withdrawalKNNsimfinal[1:nR,])
+Failuresimulated <- colSums(FailureKNNsimfinal)
 
 
 plot((mALLres-rFmedianAll),type="l",ylab="Withdrawal [mio m3]",xlab = "months",col=1,ylim=c(min(0),max(sum(D_mt[,1]))),lwd=3,lty=1)
@@ -191,20 +190,20 @@ if(with_rioSF == TRUE){
 
 
 if(with_rioSF==TRUE){
-  rQLOCAL<-rQ[,,1:12]
-  rQimport<-rQIMP[1:nTrucks,,1:12]
-  rQRSF<-rQIMP[nTrucks+1,,1:12]
+  rQLOCAL <- rQ[,,1:12]
+  rQimport <- rQIMP[1:nTrucks,,1:12]
+  rQRSF <- rQIMP[nTrucks+1,,1:12]
   Failure=colSums(rF)
-  Failure<-apply(Failure,1,median)
-  rFfinalmedian<-apply(rFall,1,median)
-  costQ<-costQ_rmt
-  costImport <- costIMP_jmt[1:nTrucks,,]
-  costRSF<-costIMP_jmt[nTrucks+1,,]
+  Failure <- apply(Failure,1,median)
+  rFfinalmedian <- apply(rFall,1,median)
+  costQ <- costQ_rmt
+  costImport  <-  costIMP_jmt[1:nTrucks,,]
+  costRSF <- costIMP_jmt[nTrucks+1,,]
   costFail <- 20
   
-  Failuresim_one<-Failurewithdrawalsim[,1:12]
-  RioSFsim_one<-ImportsimRioSFknn[,1:12]
-  Truckssim_one<-Truckssimknn[1:12]
+  Failuresim_one <- Failurewithdrawalsim[,1:12]
+  RioSFsim_one <- ImportsimRioSFknn[,1:12]
+  Truckssim_one <- Truckssimknn[1:12]
   
   TotLOCALCost=sum(rQLOCAL*costQ[,,1:12])
   TotTRUCKCost=sum(rQimport*costImport[,,1:12])
@@ -221,20 +220,20 @@ if(with_rioSF==TRUE){
   print(TotRSFCost)
   print(TotalDEFICITCost)
   print(TOTALCOST)
-  COST<-rbind(TotLOCALCost,TotTRUCKCost,TotRSFCost,TotalDEFICITCost,TOTALCOST,FailuresimCost,RioSFsimCost,TruckssimCost) #LOCALsimCost,not includes
+  COST <- rbind(TotLOCALCost,TotTRUCKCost,TotRSFCost,TotalDEFICITCost,TOTALCOST,FailuresimCost,RioSFsimCost,TruckssimCost) #LOCALsimCost,not includes
 #  write.csv(COST,file = paste0("TT/Each year cost with Rio Sao Francisco and ", percent_init_reservoir[1]*100,"% initial storage in year ", yearpredictingfor,".csv"))
 }else{ 
-  rQLOCAL<-rQ[,,1:12]
-  rQimport<-rQIMP[1:nTrucks,,1:12]
-  Failure=colSums(rF)
-  Failure<-apply(Failure,1,median)
-  rFfinalmedian<-apply(rFall,1,median)
-  costQ<-costQ_rmt
+  rQLOCAL <- rQ[,,1:12]
+  rQimport <- rQIMP[1:nTrucks,,1:12]
+  Failure <- colSums(rF)
+  Failure <- apply(Failure,1,median)
+  rFfinalmedian <- apply(rFall,1,median)
+  costQ <- costQ_rmt
   costImport <- costIMP_jmt[1:nTrucks,,]
   costFail <- 20
   
-  Failuresim_one<-Failurewithdrawalsim[,1:12]
-  Truckssim_one<-Truckssimknn[1:12]
+  Failuresim_one <- Failurewithdrawalsim[,1:12]
+  Truckssim_one <- Truckssimknn[1:12]
 
   TotLOCALCost=sum(rQLOCAL*costQ[,,1:12])
   TotTRUCKCost=sum(rQimport*costImport[,,1:12])
@@ -247,15 +246,15 @@ if(with_rioSF==TRUE){
   print(TotTRUCKCost)
   print(TotalDEFICITCost)
   print(TOTALCOST)
-  COST<-rbind(TotLOCALCost,TotTRUCKCost,TotalDEFICITCost,TOTALCOST,FailuresimCost,TruckssimCost) #LOCALsimCost,not includes
+  COST <- rbind(TotLOCALCost,TotTRUCKCost,TotalDEFICITCost,TOTALCOST,FailuresimCost,TruckssimCost) #LOCALsimCost,not includes
   } ### this 4 next lines have to be changed too.
 
 if (timeknn == 1){
   if (with_rioSF==1){
-    COSTFINAL<-array(data=0,c(8,25)) 
+    COSTFINAL <- array(data=0,c(8,25)) 
   }else{
-    COSTFINAL<-array(data=0,c(6,25)) 
+    COSTFINAL <- array(data=0,c(6,25)) 
   }
 }
 
-COSTFINAL[,timeknn]<-COST[,1]
+COSTFINAL[,timeknn] <- COST[,1]

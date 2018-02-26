@@ -1,7 +1,6 @@
-#################################################################################################################
-######## Water Management Optimization in R - Laureline
-######## laureline.josset@gmail.com
-#################################################################################################################
+## I don't think you are using this anywhere .. or am I wrong ?
+
+
 foldername <- "test/"
 save(A_d,file=paste0(foldername,"A_d.Rdata"))
 save(rhs_d,file=paste0(foldername,"rhs_d.Rdata"))
