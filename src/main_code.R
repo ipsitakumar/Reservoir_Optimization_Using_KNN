@@ -3,27 +3,29 @@
 # The start of this main part of the code could actually be moved to the input. The idea is that the parameters that the users can play with are grouped in one place. The inputs that are specific to a test case are in another script, while all of the other files are not to be touched by anyone. This is what should be clarified in this code. 
 
 with_rioSF <- T # TRUE if the Rio San Francisco project is to be considered, FALSE for the current situation
-nT <- 24 # number of timesteps
+nT <- 24 # number of months for decision making
 nS <- reservoirs_ns # why is there twice the same variable? 
 nTrucks <- 5 # number of trucks for deliveries
-newknnrun<-FALSE # What is this? describe it!
+newknnrun<-FALSE # If you want to run KNN again, you write TRUE. If you want to use the old KNN run for the 25 years, FALSE
 reservoirs_k <- 20
 reservoirs_ns <- 10
-
+percent_init_reservoir <- c(0.5, 0.8, 0.8, 0.8, 0.8) # this is the initial reservoir storage for the 5 reservoirs
 
 if(newknnrun){
   source("KNN_Simulation.R")
 }else{ 
-  load("../data/InflowJu.Rdata") # this is an input spefici to this test-case, move it somewhere else
-  load("../data/InflowMa.Rdata")
+  load("../data/InflowJu.Rdata") # KNN was run for the 25 years previously, and the results are stored in the Data section
+  load("../data/InflowMa.Rdata") # If you do not want to run it again, you can upload the data
   load("../data/InflowEn.Rdata")
   load("../data/InflowPo.Rdata")
   load("../data/InflowPr.Rdata")
   load("../data/reservoirs.Rdata")
 }
 
+source("positionfunction.R") # renamed and also should be outside of the loop !
 
-for (timeknn in 1:25){ #maybe make sure it is clear what is the difference between timeknn = 25 and nT ...
+
+for (timeknn in 1:25){ #timeknn is the number of years you are running the model for. The model in this case is run for 25 years
   
   if (timeknn ==1){
     yearpredictingfor = 1982+timeknn
@@ -34,9 +36,9 @@ for (timeknn in 1:25){ #maybe make sure it is clear what is the difference betwe
   }
   
   
-  percent_init_reservoir <- c(0.5, 0.8, 0.8, 0.8, 0.8) # this is a parameter that people can play with and also there is no reason to have it inside the loop -> to the parameter section at the start ?
   
-  source("positionfunction.R") # renamed and also should be outside of the loop !
+  
+  
   if (timeknn ==1){
     source("input_data.R") # i am pretty sure we need this to be run before the position function are generated. Also, it can be moved outside of the loop, except fo rthe streamflows, which should be in a different files. You could have the three set-ups in the streamflow script and then the user would decide which streamflow scenario they want to run. 
     ##Intial Storage
@@ -69,6 +71,7 @@ for (timeknn in 1:25){ #maybe make sure it is clear what is the difference betwe
     IniStor0sim <- endstorage
     source("simulation.R") # running simulation should be out of the if ...
   }
+  
   endstorage <- Storagesim[,12]
   print(timeknn)
   if (timeknn == 1){ # this is just declaring the arrays, no need to have inside the loop
