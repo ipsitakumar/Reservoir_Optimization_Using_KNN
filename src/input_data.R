@@ -54,7 +54,7 @@ with_Smin_constraints <- FALSE
 with_Smax_constraints <- TRUE
 resmaxcapacity <- read.csv("../data/SCMax.csv",header=T)
 SCmax_rt<-array(data = resmaxcapacity[,2] * 1e-6, dim = c(nR, nT))
-SCmax_rt[5,]<-SCmax_rt[5,]+50
+#SCmax_rt[5,]<-SCmax_rt[5,]+50
 
 # EVAPORATION AND LOSSES PROPORTIONAL TO STORED VOLUME
 evaporation <- read.csv("../data/Eits.csv",header=T)
