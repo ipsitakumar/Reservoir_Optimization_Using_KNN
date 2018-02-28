@@ -55,6 +55,8 @@ for (timeknn in 1:25){
     lpsol <- lp(direction = "min", objective.in=Obj, const.mat=A, const.dir=sense, const.rhs=rhs)
     xval <- lpsol$solution
     objval <- lpsol$objval
+    duality <-lpsol$duals #### This is the code to find the duality
+    duals
   }else{
     require(gurobi)
     model=list()
