@@ -1,28 +1,22 @@
 # add a line saying what each plot is about without entering into the details. Also, this is super long ... Is it really all needed ?
 if(with_rioSF == TRUE){
-  pdf(file=paste("../results/results from KNN Sim with RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE,width = 12,height=6)
+  pdf(file=paste("../results/results from KNN Sim with RSF_",costF_rts[1,1,1],"Failure Cost.pdf"),onefile=TRUE,width = 12,height=6)
 }else{
-  pdf(file=paste("../results/results from KNN Sim without RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE,width = 12,height=6)
+  pdf(file=paste("../results/results from KNN Sim without RSF_",costF_rts[1,1,1],"Failure Cost.pdf"),onefile=TRUE,width = 12,height=6)
 }
 
 
-<<<<<<< HEAD:src/KNN_analysis.R
 for(r in 1:nR){ ### This is the plot for the storage over time for all reservoirs
-=======
-for(r in 1:nR){
->>>>>>> 88076c9f7d0d3187bb793d97eb21fdf272b185f7:src/analysis_for_plots.R
+#for(r in 1:nR){
   plot(rSfinalKNN[r,,1],type="l",ylim=c(min(rSfinalKNN[r,,]),max(rSfinalKNN[r,,])),ylab="storage [mio m3]",xlab = "months")
   for(s in 2:nS){lines(rSfinalKNN[r,,s])}
   abline(h=SCmax_rt[r,1],col="red")
   title(paste(resname[r], "reservoir"))
 }
 
-<<<<<<< HEAD:src/KNN_analysis.R
 sumfailuresim<-sum(Failuresim)
 ## In this case, we are making a historgram of the amount of failure in the nS ensembles
-=======
 sumfailuresim <- sum(Failuresim)
->>>>>>> 88076c9f7d0d3187bb793d97eb21fdf272b185f7:src/analysis_for_plots.R
 hist(colSums(colSums(rFfinalKNN)),xlab = "Failure [mio m3]",main = " ", xlim = c(0 , 120))
 abline(v=mean(colSums(colSums(rFfinalKNN))),col="red",lwd=3)
 abline(v=quantile(colSums(colSums(rFfinalKNN)),probs = c(0.1,0.5,0.9)),col=c(3:nR),lwd=3,lty=2:4)
@@ -178,8 +172,31 @@ if (year == 1){
   }
 }
 
-<<<<<<< HEAD:src/KNN_analysis.R
-COSTFINAL[,year]<-COST[,1]
-=======
-COSTFINAL[,timeknn] <- COST[,1]
->>>>>>> 88076c9f7d0d3187bb793d97eb21fdf272b185f7:src/analysis_for_plots.R
+if (with_rioSF == TRUE){
+  withdrawalKNN<-mLOC
+  costwithdrawal<-c(1.05,0.04,0.65,0.98,1.38)
+  RioSFKNN<-riosf
+  costrioSF<-1.67
+  FailureKNN<-Failuresimulated
+  Failurecost<-20
+  withdrawalKNNCost<-withdrawalKNN*costwithdrawal
+  RioSFKNNCost<-RioSFKNN*costrioSF
+  FailureKNNCost<-FailureKNN*Failurecost
+  TOTALCOSTKNNF<-rbind(withdrawalKNNCost, RioSFKNNCost, FailureKNNCost)
+  KNNFINAL<-rbind(withdrawalKNN, RioSFKNN,FailureKNN)
+  write.csv(TOTALCOSTKNNF,file = paste0("../Results/FINAL COSTS KNN with Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+  write.csv(KNNFINAL,file = paste0("../Results/FINAL AMT KNN with Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+}else{
+  withdrawalKNN<-mLOC
+  costwithdrawal<-c(1.05,0.04,0.65,0.98,1.38)
+  costrioSF<-1.67
+  FailureKNN<-Failuresimulated
+  Failurecost<-20
+  withdrawalKNNCost<-withdrawalKNN*costwithdrawal
+  FailureKNNCost<-FailureKNN*Failurecost
+  TOTALCOSTKNNFin<-rbind(withdrawalKNNCost, FailureKNNCost)
+  KNNFINAL<-rbind(withdrawalKNN,FailureKNN)
+  write.csv(TOTALCOSTKNNFin,file = paste0("../Results/FINAL COSTS KNN without Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+  write.csv(KNNFINAL,file = paste0("../Results/FINAL AMT KNN without Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+}
+

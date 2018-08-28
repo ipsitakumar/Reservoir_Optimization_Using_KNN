@@ -1,8 +1,8 @@
 
 if(with_rioSF == TRUE){
-  pdf(file=paste("../Results/results from fixed policy", "with RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE, width = 12,height=6)
+  pdf(file=paste("../Results/Fixed Policy Results for all years (for ", nT/12, " years) ", " with Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.pdf"),onefile=TRUE,width = 12,height=6)
 }else{
-  pdf(file=paste("../Results/results from fixed policy", "without RSF_",percent_init_reservoir,"initstorage for 25 years.pdf"),onefile=TRUE,width = 12,height=6)
+  pdf(file=paste("../Results/Fixed Policy Results for all years (for ", nT/12, " years) ", " without Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.pdf"),onefile=TRUE,width = 12,height=6)
 }
 
 ### This is the plot for the storage over time for all reservoirs
@@ -124,8 +124,8 @@ if (with_rioSF == TRUE){
   FailureFPCost<-FailureFP*Failurecost
   TOTALCOSTFPF<-rbind(withdrawalFPCost, RioSFFPCost, FailureFPCost)
   FPFINAL<-rbind(withdrawalFP, RioSFFP,FailureFP)
-  write.csv(TOTALCOSTFPF,file = paste0("../Results/FINAL COSTS FP with Rio Sao Francisco and ", percent_init_reservoir[1]*100,"% initial storage for 25 years.csv"))
-  write.csv(FPFINAL,file = paste0("../Results/FINAL AMT FP with Rio Sao Francisco and ", percent_init_reservoir[1]*100,"% initial storage for 25 years.csv"))
+  write.csv(TOTALCOSTFPF,file = paste0("../Results/FINAL COSTS Fixed with Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+  write.csv(FPFINAL,file = paste0("../Results/FINAL AMT Fixed with Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
 }else{
   withdrawalFP<-withdrawalsimfinal
   costwithdrawal<-c(1.05,0.04,0.65,0.98,1.38)
@@ -136,7 +136,7 @@ if (with_rioSF == TRUE){
   FailureFPCost<-FailureFP*Failurecost
   TOTALCOSTFPFin<-rbind(withdrawalFPCost, FailureFPCost)
   FPFINAL<-rbind(withdrawalFP,FailureFP)
-  write.csv(TOTALCOSTFPFin,file = paste0("../Results/FINAL COSTS FP without Rio Sao Francisco and ", percent_init_reservoir[1]*100,"% initial storage for 25 years.csv"))
-  write.csv(FPFINAL,file = paste0("../Results/FINAL AMT FP without Rio Sao Francisco and ", percent_init_reservoir[1]*100,"% initial storage for 25 years.csv"))
+  write.csv(TOTALCOSTFPFin,file = paste0("../Results/FINAL COSTS Fixed without Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
+  write.csv(FPFINAL,file = paste0("../Results/FINAL AMT Fixed without Rio Sao Francisco and ", costF_rts[1,1,1],"Failure Cost.csv"))
 }
 

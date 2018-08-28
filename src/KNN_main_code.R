@@ -1,5 +1,4 @@
-## KNNƒ
-setwd("/Users/ipsitakumar/Documents/GitHub/Reservoir_Optimization_Using_KNN_Corrrected/src") ##
+#setwd("/Users/ipsitakumar/Documents/GitHub/Reservoir_Optimization_Using_KNN_Corrrected/src") ##
 
 with_rioSF <- T  ## This is T if we have Rio Sao Francisco providing water F if it is not. Rio Sao Francisco represents future infrastructure.
 reservoirs_k=20  ## This represents the k nearest neighbor in the KNN Run

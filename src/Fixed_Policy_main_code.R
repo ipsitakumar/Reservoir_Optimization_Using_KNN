@@ -2,9 +2,9 @@
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ## SCENARIOS 
-setwd("/Users/ipsitakumar/Documents/GitHub/Reservoir_Optimization_Using_KNN_Corrrected/src") ##
+setwd("C:/Users/Ipsita Kumar/Desktop/IDB Research Project/Reservoir Optimization Model for Pernambuco -- Data and code/src") ##
 
-with_rioSF <- T  ## This is T if we have Rio Sao Francisco providing water F if it is not. Rio Sao Francisco represents future infrastructure.
+with_rioSF <- F  ## This is T if we have Rio Sao Francisco providing water F if it is not. Rio Sao Francisco represents future infrastructure.
 nT <- 36  ## The number of months the model is running for 
 nS <- 43  ## The number of ensemble runs we are doing for the optimization 
 nTrucks <- 5  ## Number of trucks we are importing from
@@ -24,6 +24,7 @@ source("positionfunction.R")
 ## read inputs 
 source("Input_data_All.R")
 S_r0s <- array(data = resmaxcapacity[,2] * 1e-6 * percent_init_reservoir, dim = c(nR, nS)) ## This is the initial storage data
+costF_rts <- array(data = 200, dim = c(nR, nT, nS))
 source(("Fixed_Policy_Streamflow_Input.R"))
 
 ## generate matrix for optimization problem
@@ -70,8 +71,7 @@ if (with_rioSF ==TRUE){
 
 
 for (year in 1:25){ ## This is where the fixed policy results is run from the optimization for the 25 years
-  KNN=FALSE
-  source("Simulation.R")
+  source("simulation fixed policy.R")
 }
 
 source("Fixed_Policy_Analysis.R")  ## In this case, we are creating plots for the runs

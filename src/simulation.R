@@ -1,7 +1,7 @@
 # this code needs commenting and dividing into broad sections
 
 require(data.table)
-<<<<<<< HEAD
+# HEAD
 if (year ==1){
   yearpredictingfor=1982+year
   yearselected=yearpredictingfor-2
@@ -83,7 +83,7 @@ Failuresim<-array(data=0 , c(totalressim,timesim))
 Storagesim<-array(data=0 , c(totalressim,timesim))
 Failurereleasesim<-array(data=0 , c(totalressim,timesim))
 Failurewithdrawalsim<-array(data=0 , c(totalressim,timesim))
-=======
+#
 whichyearsim <- paste0("X",yearpredictingfor,".",(yearpredictingfor+1))
 whichrowsim <- which(whichyearsim == rownames(reservoirs))
 rowssim <- 1:dim(reservoirs)[1]
@@ -133,8 +133,7 @@ Failuresim <- array(data=0 , c(totalressim,timesim))
 Failurereleasesim <- array(data=0 , c(totalressim,timesim))
 Failurewithdrawalsim <- array(data=0 , c(totalressim,timesim))
 Storagesim <- array(data=0 , c(totalressim,timesim))
->>>>>>> 88076c9f7d0d3187bb793d97eb21fdf272b185f7
-
+###
 
 # you ahve twice, more or less, exactly the same code: lines 56-76 and lines 79-102
 for (res in 1:totalressim){
