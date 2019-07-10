@@ -113,10 +113,10 @@ Coef_FP <- compute_coeff(rF_FP)
 Coef_PI <- compute_coeff(rF_PI)
 
 ## produce table of results
-volwSF <- round(cbind(c(rowSums(rQ_PF), NA, sum(rQ_PF), sum(rF_PF)),
-                      c(rowSums(rQ_PI), NA, sum(rQ_PI), sum(rF_PI)),
-                      c(rowSums(rQ_FP), NA, sum(rQ_FP), sum(rF_FP)),
-                      c(rowSums(rQ_KNN), NA, sum(rQ_KNN), sum(rF_KNN)))/nTotalTime*12,
+volwSF <- round(cbind(c(rowSums(rQ_PF), sum(rQIMP_PF[6,]), sum(rQ_PF), sum(rF_PF)),
+                      c(rowSums(rQ_PI), sum(rQIMP_PI[6,]), sum(rQ_PI), sum(rF_PI)),
+                      c(rowSums(rQ_FP), sum(rQIMP_FP[6,]), sum(rQ_FP), sum(rF_FP)),
+                      c(rowSums(rQ_KNN), sum(rQIMP_KNN[6,]), sum(rQ_KNN), sum(rF_KNN)))/nTotalTime*12,
                    digits = 1)
 
 metricwSF <- t(signif(rbind(Coef_PF, Coef_FP, Coef_PI, Coef_KNN),
